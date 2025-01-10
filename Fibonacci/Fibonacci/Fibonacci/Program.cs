@@ -1,21 +1,29 @@
 ﻿Console.WriteLine("Digite um número:");
-var input = int.Parse(Console.ReadLine());
+int input;
 
-CalcularSequenciaFibonacci(input);
+if (int.TryParse(Console.ReadLine(), out input) && input >= 0)
+    VerificarFibonacci(input);
+else
+    Console.WriteLine("Por favor, insira um número válido não negativo.");
 
-static void CalcularSequenciaFibonacci(int input)
+static void VerificarFibonacci(int input)
 {
-    var fibonacciNums = new List<int> { 0, 1 };
+    int a = 0, b = 1;
 
-    while (fibonacciNums[fibonacciNums.Count - 1] < input)
+    if (input == a || input == b)
     {
-        var numAnterior = fibonacciNums[fibonacciNums.Count - 1];
-        var numAnterior2 = fibonacciNums[fibonacciNums.Count - 2];
-
-        fibonacciNums.Add(numAnterior + numAnterior2);
+        Console.WriteLine("O número informado pertence à sequência Fibonacci");
+        return;
     }
 
-    if (fibonacciNums.Contains(input))
+    while (b < input)
+    {
+        int temp = a + b;
+        a = b;
+        b = temp;
+    }
+    
+    if (b == input)
         Console.WriteLine("O número informado pertence a sequência Fibonacci");
     else
         Console.WriteLine("O número informado não pertence a sequência Fibonacci");
